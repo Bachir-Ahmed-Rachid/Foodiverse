@@ -1,0 +1,14 @@
+@keyframes toast-animation {
+ 0%{bottom:-100%}   /*offscreen */
+20%{bottom:100px}   /*100px from the bottom of the page */
+80%{bottom:100px}   /*100px from the bottom of the page*/
+100%{bottom:-100%}  /*offscreen */
+}
+#toast{
+    min-width: 250px;
+    position: fixed;
+    bottom:-100%; /*after the animation */
+    right: 20px;
+    animation-name: toast-animation;
+    animation-duration: 5s;
+}

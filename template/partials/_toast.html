@@ -1,0 +1,12 @@
+{% if messages %}
+     <div id='toast'>
+            {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} fade show" role="alert">
+                        {{ message }}
+                    </div>
+            {% endfor %}
+        </div>
+{% endif %}
+
+
+

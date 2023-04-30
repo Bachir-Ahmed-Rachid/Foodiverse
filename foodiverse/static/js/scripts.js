@@ -11685,6 +11685,8 @@ jQuery(document).ready(function () {
     }
     /* blog Slider End */
     /*Delivery Timing Dropdown Functions Start*/
+    // $("#toast").delay(2000).fadeOut('slow');
+
     $(".delivery-timing .reviews-sortby-active").on("click", function () {
         $(this).next("ul").slideToggle();
         $(this).parents("ul").toggleClass("open");
