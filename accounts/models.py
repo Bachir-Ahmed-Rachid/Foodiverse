@@ -46,11 +46,11 @@ class UserManger(BaseUserManager):
 class User(AbstractBaseUser):
     #By default, every Django model has a manager called objects(a class that provides a way to interact with the database and perform queries on a specific model. ) 
     objects=UserManger()
-    RESTAURANT=1
+    VENDOR=1
     CUSTOMER=2
 
     ROLE_CHOICE=(
-        (RESTAURANT,'RESTAURANT'),
+        (VENDOR,'VENDOR'),
         (CUSTOMER,'CUSTOMER')
     )
 
