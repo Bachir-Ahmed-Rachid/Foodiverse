@@ -84,6 +84,12 @@ class User(AbstractBaseUser):
         return self.is_admin
     def has_module_perms(self,app_label):
         return True
+    def get_role(self):
+        if self.role == 1:
+            user_role= 'VENDOR'
+        elif self.role == 2:
+            user_role = 'CUSTOMER'
+        return user_role
 
 
 class UserProfile(models.Model):
@@ -103,6 +109,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.email
+
     
 
 
