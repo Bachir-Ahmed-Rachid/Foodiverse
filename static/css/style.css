@@ -3894,3 +3894,7 @@ span.list-feature-item { background: #00a79d; color: #ffffff; font-size: 12px; t
 textarea#comment_mes { display: none; }
 .main-search .field-holder{margin: 0 0 5px !important;}
 .main-search.fancy.bg-holder{padding: 5px 5px 0!important;}
+a {
+  color: blue;
+  text-decoration: none; /* no underline */
+}
