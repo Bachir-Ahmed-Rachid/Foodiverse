@@ -1,5 +1,8 @@
 from django import forms
-from .models import User
+from .models import User,UserProfile
+from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
+from .validation import allow_only_images
 class UserForm(forms.ModelForm):
     password=forms.CharField(max_length=50, widget=forms.PasswordInput)
     confirm_password=forms.CharField(max_length=50, widget=forms.PasswordInput)
@@ -34,3 +37,22 @@ class UserForm(forms.ModelForm):
                 "Passwords do not match"
             )
 
+class UserProfileForm(forms.ModelForm):
+    profile_picture=forms.FileField(validators=[allow_only_images],widget=forms.FileInput(attrs={'class': 'btn btn-info'},))
+    cover_picture=forms.FileField(validators=[allow_only_images],widget=forms.FileInput(attrs={'class': 'btn btn-info'},))
+    latitude=forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'},))
+    longitude=forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'},))
+    class Meta:
+        model = UserProfile
+        exclude = ['user']
+
+
+
+
+        
+
+
+
+
+
+        
