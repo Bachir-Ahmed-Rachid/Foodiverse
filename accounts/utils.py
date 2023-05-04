@@ -10,7 +10,7 @@ def get_redirect_url(user):
     elif user.role ==2:
         redirect_url='dashboardCustomer'
     elif user.role is None:
-        redirect_url='admin'
+        redirect_url='/admin'
     return redirect_url    
 
 
@@ -23,5 +23,12 @@ def send_verification_email(request,user,mail_subject,template_path):
         'token':default_token_generator.make_token(user)
     })
     to_mail=user.email
+    mail=EmailMessage(mail_subject,message,to=[to_mail])
+    mail.send()
+
+
+def send_approval_notification(mail_subject,mail_template,context):
+    message=render_to_string(mail_template,context)
+    to_mail=context['user'].email
     mail=EmailMessage(mail_subject,message,to=[to_mail])
     mail.send()

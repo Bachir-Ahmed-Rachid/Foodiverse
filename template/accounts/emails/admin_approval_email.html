@@ -1,0 +1,12 @@
+ {% autoescape off %}
+    Hi {{user.first_name}}
+    
+    {% if is_approved  %}
+      Congratulation ! your restaurant has been approved
+    {% else %}
+      We are sorry you are not eligible for publishing food menu on our marketplace       
+    {% endif %}
+      
+    please click on below link to reset your password.
+ {% endautoescape %}
+ 

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,reverse
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from .forms import UserForm
@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from .utils import get_redirect_url,send_verification_email
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
+from vendors.models import Vendor
 from django.http import HttpResponse
 # Create your views here.
 
@@ -192,7 +193,6 @@ def reset_password_validate(request,uidb64,token):
 
 def reset_password(request):
      if request.method =='POST':
-          print(request.POST)
           password=request.POST['password']
           password_confirm=request.POST['password_confirm']
           
@@ -207,3 +207,5 @@ def reset_password(request):
                messages.error(request, "Passwords did't match.")
                return redirect('reset_password')
      return render(request,'accounts/reset_password.html')
+
+
