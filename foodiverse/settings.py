@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts",
-    "vendors"
+    "vendors",
+    "menu"
 ]
 
 MIDDLEWARE = [
@@ -66,7 +67,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "accounts.context_processors.get_vendor"
+                "accounts.context_processors.get_vendor",
+                "accounts.context_processors.google_api_key",
             ],
         },
     },
@@ -158,3 +160,5 @@ EMAIL_PORT=config('EMAIL_PORT',cast=int)
 EMAIL_USE_TLS=True
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 SERVER_EMAIL = config('SERVER_EMAIL')
+
+GOOGLE_API_KEY=config('GOOGLE_API_KEY')

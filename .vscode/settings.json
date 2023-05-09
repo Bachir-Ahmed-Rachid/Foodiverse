@@ -3,5 +3,6 @@
         "foodiverse",
         "superadmin",
         "uidb"
-    ]
+    ],
+    "python.analysis.typeCheckingMode": "basic"
 }

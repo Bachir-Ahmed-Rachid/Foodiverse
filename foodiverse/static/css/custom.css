@@ -12,3 +12,16 @@
     animation-name: toast-animation;
     animation-duration: 5s;
 }
+
+.btn{
+    padding: 2px 1.75rem;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: white;
+}
+
+
+a{
+    text-decoration: none !important;
+    color: white !important;
+}

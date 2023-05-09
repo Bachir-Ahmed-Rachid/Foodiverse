@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	Update category
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="main-section">
+{% include 'partials/_dashboard_header.html' %}
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                {% include 'partials/vendors/_vendor_sideBar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="user-dashboard loader-holder">
+                        <div class="user-holder">
+                            <button class="btn btn-dark btn-sm" onclick="history.back()"><i class="fa-solid fa-circle-chevron-left"></i> Back</button>
+                            <br/>
+                            <h2 class="mt-5">
+	                            Update category {{category.category_name}}
+                            </h2>
+                        </tr>
+
+                        <form action='' method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                                <div class="form-fields-set">
+                                    <div class="row">
+                                        <div class="form-fields-set">
+                                            <div class="row">
+                                                {% for field in form_category %}   
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="field-holder">
+                                                            <label>{{field.label_tag}}</label>
+                                                            {{field}}
+                                                                {% if field.errors %}
+                                                                    <ul class='errorList'>
+                                                                        {% for error in field.errors  %}
+                                                                            <li style="color:red;">
+                                                                                {{error}}
+                                                                            </li>
+                                                                        {% endfor %}     
+                                                                    </ul>
+                                                                {% endif %}
+                                                        </div>
+                                                    </div> 
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="field-holder">
+                                            <div class="payment-holder input-button-loader">
+                                                <input class="update-restaurant" type="submit" value="Update category">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>            
+                        </form>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock content %}
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+

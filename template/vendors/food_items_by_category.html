@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	{{category.category_name}}
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="main-section">
+{% include 'partials/_dashboard_header.html' %}
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                {% include 'partials/vendors/_vendor_sideBar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="user-dashboard loader-holder">
+                        <div class="user-holder">
+                            <button class="btn btn-dark btn-sm" onclick="history.back()"><i class="fa-solid fa-circle-chevron-left"></i> Back</button>
+                            <br/>
+                            <h2 class="mt-5">
+	                            {{category.category_name}}
+                            </h2>
+                        </tr>
+                            
+                          {% if food_items %}
+                          <div class="user-orders-list">
+                            <div class="responsive-table">
+                                <ul class="table-generic">
+                                    <li class="order-heading-titles">
+                                        <div>Id</div>
+                                        <div>Food name</div>
+                                        <div>Image</div>
+                                        <div>price</div>
+                                        <div>status</div>
+                                        <div>Creation Date</div>
+                                        <div>Updated Date</div>
+                                        <div></div>
+                                    </li>
+                                    {% for food_item in food_items %}
+                                    <li class="order-heading-titles">
+                                        <div style="width: 50px;">{{food_item.id}}</div>
+                                        <div>
+                                            <a>
+                                              <p class="mb-0 font-weight-bold">
+                                                {{food_item.product_name}}
+                                              </p>
+                                              <small>
+                                                {{food_item.description}}
+                                              </small>
+                                          </a>
+                                        </div>
+                                        <div> <img style="width: 70px;" src="{{food_item.image.url}}" alt="food-image"></div>
+                                        <div>${{food_item.price}}</div>
+                                        <div>
+                                            
+                                            {% if food_item.is_available %}
+                                            <span class="order-status" style="background-color: #047a06;">Available</span>
+                                            {% else %}
+                                            <span class="order-status" style="background-color: red;">Not available</span>
+                                            {% endif %}
+                                                
+                                        </div>
+                                        <div style="width: 30px;">{{food_item.created_at}}</div>
+                                        <div style="width: 30px;" >{{food_item.modified_at}}</div>
+                                        <div >
+                                          <i class="fa-regular fa-pen-to-square"></i>&nbsp;
+                                          <i class="fa-solid fa-trash text-danger"></i>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+
+                            </div>												
+                          </div>
+                          {% else %}
+                          <div class="d-flex flex-column justify-content-center align-items-center">
+                                <p>No Food item was found in this category</p>
+                                <a  class="btn btn-info btn-sm text-white"><i class="fa-solid fa-plus"></i>Add food</a>
+                            </div>
+                          {% endif %}
+  
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock content %}
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
