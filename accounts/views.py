@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,reverse
+from django.shortcuts import render,redirect
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from .forms import UserForm
@@ -11,6 +11,8 @@ from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from vendors.models import Vendor
 from django.http import HttpResponse
+from django.utils.text import slugify
+
 # Create your views here.
 
 
@@ -88,6 +90,7 @@ def registerVendor(request):
                vendor=form_vendor.save(commit=False)
                vendor.user=user
                vendor.user_profile=user_profile
+               vendor.slug=slugify(form_vendor.cleaned_data['vendor_name'])+'-'+str(user.id)
                vendor.save()
                send_verification_email(request,user,'Account activation','accounts/emails/account_verification_email.html')
                messages.success(request, 'Your compte has been registered successfully . Please wait for the approval')

@@ -6,6 +6,7 @@ class Vendor(models.Model):
     user=models.OneToOneField(User,related_name='user', on_delete=models.CASCADE)
     user_profile=models.OneToOneField(UserProfile,related_name='user_profile', on_delete=models.CASCADE)
     vendor_name=models.CharField(max_length=50,unique=True)
+    slug=models.SlugField(max_length=150,unique=True)
     vendor_licence=models.ImageField(upload_to='vendor/licences')
     is_approved=models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
