@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib import messages
 from accounts.views import is_vendor
 from menu.models import Category,Product
-from menu.forms import CategoryForm
+from menu.forms import CategoryForm,ProductForm
 # Create your views here.
 
 
@@ -133,3 +133,71 @@ def delete_category(request,id):
     return redirect(reverse('menu-builder'))
 
 
+@login_required(login_url='login')
+@user_passes_test(is_vendor)
+def add_food_item(request):
+    vendor = get_vendor(request)
+    categories=Category.objects.filter(vendor = vendor.pk)
+    if request.method == 'POST':
+        product_form=ProductForm(request.POST,request.FILES)
+        if product_form.is_valid():
+            product=product_form.save(commit=False)
+            product.vendor=vendor
+            slug=slugify(product_form.cleaned_data['product_name'])
+            product.slug=slug
+            product.save()
+            messages.success(request, 'Food Item created successfully.')
+            return redirect(reverse('food_items_by_category',args=[product_form.cleaned_data['category'].id]))
+        else:
+            print(f'{product_form.errors}')
+            messages.error(request, 'something went wrong')     
+    else:
+        
+        product_form=ProductForm()
+        product_form.fields['category'].queryset=categories
+    context={
+        'product_form':product_form
+    }
+    return render(request,'vendors/add_food_item.html',context)
+
+
+
+
+
+
+@login_required(login_url='login')
+@user_passes_test(is_vendor)
+def update_food_item(request,id):
+    vendor = get_vendor(request)
+    categories=Category.objects.filter(vendor = vendor.pk)
+    product=get_object_or_404(Product,pk = id)
+    if request.method == 'POST':
+        product_form=ProductForm(request.POST,request.FILES,instance=product)
+        if product_form.is_valid():
+            product=product_form.save(commit=False)
+            slug=slugify(product_form.cleaned_data['product_name'])
+            product.slug=slug
+            product.save()
+            messages.success(request, 'Food Item updated successfully.')
+            return redirect(reverse('food_items_by_category',args=[product_form.cleaned_data['category'].id]))
+        else:
+            print(f'{product_form.errors}')
+            messages.error(request, 'something went wrong')     
+    else:
+        
+        product_form=ProductForm(instance=product)
+        product_form.fields['category'].queryset=categories
+    context={
+        'product_form':product_form,
+        'product':product
+    }
+    return render(request,'vendors/update_food_item.html',context)
+
+
+
+@login_required(login_url='login')
+@user_passes_test(is_vendor)
+def delete_food_item(request,id):
+    product=get_object_or_404(Product,pk=id)
+    product.delete()
+    return redirect(reverse('menu-builder'))

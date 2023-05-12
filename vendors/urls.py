@@ -10,5 +10,10 @@ urlpatterns = [
      path('menu-builder/category/delete-category/<id>',views.delete_category,name='delete_category'),
      path('menu-builder/category/<id>',views.food_items_by_category,name='food_items_by_category'),
 
+     path('menu-builder/food-item/add-food-item',views.add_food_item,name='add_food_item'),
+     path('menu-builder/food-item/update-food-item/<id>',views.update_food_item,name='update_food_item'),
+     path('menu-builder/food-item/delete-food-item/<id>',views.delete_food_item,name='delete_food_item'),
+    #  path('menu-builder/food-item/<id>',views.food_items_by_food_item,name='food_items_by_food_item'),
+
  ]
  

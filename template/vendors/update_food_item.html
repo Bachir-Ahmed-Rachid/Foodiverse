@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-	Update category
+	Update food item
 {% endblock title %}
 
 
@@ -19,10 +19,8 @@
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                     <div class="user-dashboard loader-holder">
                         <div class="user-holder">
-                            <button class="btn btn-dark btn-sm" onclick="history.back()"><i class="fa-solid fa-circle-chevron-left"></i> Back</button>
-                            <br/>
-                            <h2 class="mt-5">
-	                            Update category {{category.category_name}}
+                            <h2>
+	                            Update Food item
                             </h2>
                         </tr>
 
@@ -32,8 +30,8 @@
                                     <div class="row">
                                         <div class="form-fields-set">
                                             <div class="row">
-                                                {% for field in form_category %}   
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                {% for field in product_form %}   
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                         <div class="field-holder">
                                                             <label>{{field.label_tag}}</label>
                                                             {{field}}
@@ -55,10 +53,11 @@
                                     <div>
                                         <div class="field-holder">
                                             <div class="payment-holder input-button-loader">
-                                                <input class="update-restaurant" type="submit" value="Update category">
-                                                <a onclick="return confirm('Are you sure you want to delete this category?')" href="{%url 'delete_category' category.id %}" class="btn btn-danger btn-sm">
-                                                    <i class="fa-solid fa-trash text-white fa-xs m-2"></i>Delete Category
+                                                <input class="update-restaurant" type="submit" value="Update food item">
+                                                <a onclick="return confirm('Are you sure you want to delete this food item?')"href="{%url 'delete_food_item' product.id %}" class="btn btn-danger btn-sm">
+                                                    <i class="fa-solid fa-trash text-white fa-xs m-2"></i>Delete food item
                                                 </a>
+                                                
                                             </div>
                                         </div>
                                     </div>

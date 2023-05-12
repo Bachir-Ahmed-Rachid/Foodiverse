@@ -78,7 +78,7 @@
 /* resturant detail menu start */
 .login-form .g-recaptcha { -webkit-transform: scale(1.15); -moz-transform: scale(1.1); -ms-transform: scale(1.1); transform: scale(1.1); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0; }
 .login-form .recaptcha-reload { margin-bottom: 30px; }
-.restaurant-detail-image-section { background: #ccc; margin-bottom: 60px; padding: 102px 0; position: relative; }
+.restaurant-detail-image-section { content: ''; display: block; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: rgba(0, 0, 0, 0.6);}
 .restaurant-detail-image-section:before { content: ''; display: block; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: rgba(0, 0, 0, 0.6); }
 .company-info-detail { display: table; width: 100%; }
 .transparent-header + .restaurant-detail-image-section .company-info-detail { margin-top: 50px; }
@@ -93,7 +93,7 @@
 .company-info-detail .company-info .text-holder .rating-star .rating-box { height: 16px; left: 0; overflow: hidden; position: absolute; top: 0; }
 .company-info-detail .company-info .text-holder .rating-star .rating-box:before { color: #ff981a; content: "\f005\f005\f005\f005\f005"; font-family: "icomoon"; font-size: 14px; letter-spacing: 3px; }
 .company-info-detail .company-info .text-holder span.reviews { color: #fff; display: inline-block; font: 300 14px/22px 'Open Sans', sans-serif; letter-spacing: 0; word-spacing: 0; text-transform: none; vertical-align: top; margin: 0 0 0 3px; }
-.company-info-detail .company-info .text-holder span.restaurant-title {opacity: 0.9999; color: #fff; font: 400 32px/34px 'Montserrat', sans-serif; letter-spacing: 0; word-spacing: 0; text-transform: none; margin: 0 0 9px 0; display: block; }
+.company-info-detail .company-info .text-holder span.restaurant-title { color: #fff; font: 400 32px/34px 'Montserrat', sans-serif; letter-spacing: 0; word-spacing: 0; text-transform: none; margin: 0 0 9px 0; display: block; }
 .company-info-detail .company-info .text-holder .text { position: relative; padding: 0 0 0 20px; }
 .company-info-detail .company-info .text-holder .text i { position: absolute; left: 0; color: #fff; line-height: 26px; }
 .company-info-detail .company-info .text-holder .text p { color: #fff !important; font: 400 14px/24px 'Open Sans', sans-serif; letter-spacing: 0; word-spacing: 0; text-transform: none; margin: 0 0 3px 0; }

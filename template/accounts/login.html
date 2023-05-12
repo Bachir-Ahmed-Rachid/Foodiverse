@@ -18,7 +18,7 @@
                     <p class="text-center">Order food from your favorite restaurent</p>
                     <hr>
                     <div id="restaurant-sets-holder">
-                        <form class="form-fields-set foodbakery-dev-restaurant-form" method="post" action="/accounts/login">
+                        <form class="form-fields-set foodbakery-dev-restaurant-form" method="post" action="{% url 'login' %}">
                             {% csrf_token %}
                             <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
                                 <li>
