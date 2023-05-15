@@ -87,13 +87,14 @@ class User(AbstractBaseUser):
     def get_role(self):
         if self.role == 1:
             user_role= 'VENDOR'
+            return user_role
         elif self.role == 2:
             user_role = 'CUSTOMER'
-        return user_role
+            return user_role
 
 
 class UserProfile(models.Model):
-    user=models.OneToOneField("User", on_delete=models.CASCADE,blank=True,null=True)
+    user=models.OneToOneField(User, on_delete=models.CASCADE,blank=True,null=True)
     profile_picture=models.ImageField(upload_to='user/profile_picture',blank=True,null=True)
     cover_picture=models.ImageField(upload_to='user/cover_picture',blank=True,null=True)
     address=models.CharField(max_length=250,blank=True,null=True)

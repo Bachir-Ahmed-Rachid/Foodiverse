@@ -23,3 +23,11 @@ function initAutoComplete () {
 google.maps.event.addDomListener(window, 'load', initAutoComplete);
   
 
+
+$(document).ready(function(){
+    $('.restaurant-add-menu-btn').on('click',function(e){
+      e.preventDefault();
+      console.log('test')
+      alert('Add');
+    })
+})

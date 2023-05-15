@@ -27,6 +27,12 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="login-option">
+                        {% if user.is_authenticated %} 
+                        <a href="#">
+                            <i class="fa fa-shopping-cart text-danger" style="font-size:  20px;"></i>
+                            <span id="cart-counter" class="badge text-bg-warning" style="position: relative; border-radius: 50%; bottom: 10px;left: -5px;">{{cart_counter}}</span>
+                        </a>
+                        {% endif %}
                         <a class="get-start-btn"  data-toggle="modal" href="{% url 'marketplace' %}">Marketplace</a>
                         {% if user.is_authenticated %}                
                         <a class="cs-color cs-popup-joinus-btn login-popup"  data-toggle="modal" href="{% url 'myAccount' %}">Dashboard</a>
