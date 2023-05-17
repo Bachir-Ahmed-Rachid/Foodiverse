@@ -14,3 +14,24 @@ def get_counter(request):
         
     
     return dict(cart_counter=cart_counter)
+
+def get_cart_amount(request):
+    subTotal=0
+    tax=0
+    grandTotal=0
+    if request.user.is_authenticated:
+        cart_items=Cart.objects.filter(user=request.user)
+        if cart_items:
+            for cart_item in cart_items:
+                subTotal+=cart_item.quantity*cart_item.fooditem.price
+        else:
+            subTotal=0
+            tax=0
+            grandTotal=0
+        grandTotal=tax+subTotal
+    return dict(subTotal=subTotal,tax=tax,grandTotal=grandTotal)
+    
+       
+            
+
+

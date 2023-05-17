@@ -9,67 +9,7 @@
 {% block content %}
 
 
-<script>
-	$(document).ready(function(){
-    $('.restaurant-add-menu-btn').on('click',function(e){
-      e.preventDefault();
-      food_id=$(this).attr('data-id')
-	  url=$(this).attr('data-url')
-	  data={
-		food_id:food_id
-	  }
-      $.ajax({
-		type:'GET',
-		url:url,
-		success:function(response){
-			if (response.status == 'login_required') {
-				swal(response.message, "", "info").then(()=>{
-					window.location='/%2Flogin'
-				})
-				
-			}else if(response.status == 'fail'){
-				swal(response.message, "", "error");
-			} else {
-				
-				$('#cart-counter').html(response.counter.cart_counter)
-				$('#qty-'+response.id).html(response.qty)
-			}
-		}
-	  })
-    })
 
-
-	$('.restaurant-minus-menu-btn').on('click',function(e){
-      e.preventDefault();
-      food_id=$(this).attr('data-id')
-	  url=$(this).attr('data-url')
-      $.ajax({
-		type:'GET',
-		url:url,
-		success:function(response){
-			if (response.status == 'login_required') {
-				swal(response.message, "", "info").then(()=>{
-					window.location='/%2Flogin'
-				})
-				
-			}else if(response.status == 'fail'){
-				swal(response.message, "", "error");
-			} else {
-				
-				$('#cart-counter').html(response.counter.cart_counter)
-				$('#qty-'+response.id).html(response.qty)
-			}
-		}
-	  })
-    })
-
-	$('.item_qty').each(function(){
-		fooditem_id=$(this).attr('id')
-		fooditem_qty=$(this).attr('data-qty')
-		$('#'+fooditem_id).html(fooditem_qty)
-	})
-})
-</script>
 <!-- Main Section Start -->
 <div class="main-section">
 	<div class="page-section restaurant-detail-image-section" 

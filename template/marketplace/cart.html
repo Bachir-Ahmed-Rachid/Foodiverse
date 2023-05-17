@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	Cart
+{% endblock title %}
+
+
+{% block content %}
+
+
+
+<!-- Main Section Start -->
+<div class="main-section">
+	<div class="page-section">
+		<div class="container">
+			<div class="row mt-5">
+				
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+					<div class="tabs-holder horizontal">
+						<ul class="stickynav-tabs nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Cart items</a></li>
+						</ul>
+						<div class="tab-content">
+							<div id="home" class="tab-pane in active">
+								<div class="menu-itam-holder" style="padding-bottom: 8px;">
+									
+									<div id="menu-item-list-6272" class="menu-itam-list">
+										
+										{% if carts %}
+										<div id="emptycart" style="display: none;">
+											<p>
+												No Item was add to your cart
+											</p>
+											<p>
+												Go to market place and some item!
+											</p> 
+										</div>
+										
+											<ul>
+												{% for cart in carts %}										
+													<li id="cartItem-{{cart.pk}}">
+														<div class="image-holder"> 
+															<a href="assets/extra-images/cover-photo12-1024x187.jpg">
+																
+																{% if cart.fooditem.image %}
+																	<img src="{{cart.fooditem.image.url}}" alt="">
+																{% else %}
+																	<img src="{% static 'images/default-cover.png' %}" alt="">
+																{% endif %}
+																	
+															</a>
+														</div>
+														<div class="text-holder">
+															<h6>{{cart.fooditem.product_name}}</h6>
+															<span>
+																{{cart.fooditem.description}}
+															</span>
+															<a href="{% url 'vendor_detail' cart.fooditem.vendor.slug %}" class="badge text-bg-warning">{{cart.fooditem.vendor.vendor_name}}</a>
+														</div>
+														<div class="price-holder">
+															<span  class="price">${{cart.fooditem.price}}</span>
+															<a 
+																id="{{cart.id}}" 
+																href="#" 
+																class="restaurant-minus-menu-btn" 
+																style="margin-right: 28px;" 
+																data-id="{{cart.fooditem.id}}" 
+																data-url="{% url 'remove_from_cart' cart.fooditem.pk %}"
+																data-price-minus="{{cart.fooditem.price}}"
+																>
+																	<i class="icon-minus text-color"></i>
+															</a>
+															<label id="qty-{{cart.fooditem.id}}">0</label>
+															<a 
+																href="#" 
+																class="restaurant-add-menu-btn" 
+																data-id="{{cart.fooditem.id}}" 
+																data-url="{% url 'add_to_cart' cart.fooditem.pk %}"
+																data-price-add="{{cart.fooditem.price}}"
+																>
+																	<i class="icon-plus4 text-color"></i>
+															</a>
+															<span id="add-menu-loader-10"></span>
+															<span data-price="{{cart.fooditem.price}}" data-qty="{{cart.quantity}}" class="item_qty" id="qty-{{cart.fooditem.id}}"></span>
+															<a href="#" data-price-remove="{{cart.fooditem.price}}"class="remove_cart" data-id-fooditem="{{cart.fooditem.id}}" data-id="{{cart.id}}" data-url="{% url 'remove_cart' cart.pk %}"><i class="icon-delete text-color"></i></a>
+
+
+														</div>
+													</li>
+												{% endfor %}
+											</ul>								
+										{% else %}
+											<p>
+												No Item was add to your cart
+											</p>
+											<p>
+												Go to market place and some item!
+											</p>
+										{% endif %}
+											
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<div class="tabs-holder horizontal">
+						<ul class="stickynav-tabs nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Your Order</a></li>
+							
+						</ul>
+						<div class="tab-content">
+							<div id="home" class="tab-pane in active">
+								<div class="menu-itam-holder" style="padding-bottom: 2px;">
+									
+									<div id="menu-item-list-6272" class="menu-itam-list">
+										<ul>
+											<li style="list-style: none;"  class="d-flex justify-content-between">
+												Sub total
+												<span class="price">
+													<span class="currency">$</span>
+													<span id="subtotal">{{subTotal}}</span>
+												</span>
+											</li>
+											<li style="list-style: none;" class="d-flex justify-content-between">
+												Tax
+												<span class="price">
+													<span class="currency">$</span>
+													<span id="tax">{{tax}}</span>
+												</span>
+											</li>
+											<li style="list-style: none; font-weight: 600;" class="d-flex justify-content-between mb-5">
+												Total
+												<span class="price">
+													<span class="currency">$</span>
+													<span id="total">{{grandTotal}}</span>
+												</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Main Section End -->
+
+{% endblock content %}
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+

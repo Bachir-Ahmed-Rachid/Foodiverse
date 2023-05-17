@@ -48,6 +48,8 @@
 			min-height: 100vh;
 		}
 	</style>
+
+
 </head>
 
 <body>
@@ -66,6 +68,135 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>	
 	<script src="{% static 'js/modernizr.js'%}"></script>
 	<script src="{% static 'js/bootstrap.js'%}"></script>
+
+
+	<script>
+		
+		$(document).ready(function(){
+		$('.restaurant-add-menu-btn').on('click',function(e){
+		  e.preventDefault();
+		  food_id=$(this).attr('data-id')
+		  
+		  url=$(this).attr('data-url')
+		  $.ajax({
+			type:'GET',
+			url:url,
+			success:function(response){
+				if (response.status == 'login_required') {
+					swal(response.message, "", "info").then(()=>{
+						window.location='/%2Flogin'
+					})
+					
+				}else if(response.status == 'fail'){
+					swal(response.message, "", "error");
+				} else {
+					applyCartItem(response.cart_amount)
+					$('#cart-counter').html(response.counter.cart_counter)
+					$('#qty-'+response.id).html(response.qty)
+					
+
+
+					
+				}
+			}
+		  })
+		})
+	
+	
+		$('.restaurant-minus-menu-btn').on('click',function(e){
+		  e.preventDefault();
+		  food_id=$(this).attr('data-id')
+		  url=$(this).attr('data-url')
+		  cart_id=$(this).attr('id')
+		  $.ajax({
+			type:'GET',
+			url:url,
+			success:function(response){
+				if (response.status == 'login_required') {
+					swal(response.message, "", "info").then(()=>{
+						window.location='/%2Flogin'
+					})
+					
+				}else if(response.status == 'fail'){
+					swal(response.message, "", "error");
+				} else {
+					applyCartItem(response.cart_amount)
+					$('#cart-counter').html(response.counter.cart_counter)
+					$('#qty-'+response.id).html(response.qty)
+					if(cart_id){
+						applyCartItem(response.cart_amount)
+						deleteCartItemLi(response.qty,cart_id)
+						emptyCartDiv(response.counter.cart_counter)
+					}
+
+					
+
+				}
+			}
+		  })
+		})
+	
+	
+	
+		
+		$('.remove_cart').on('click',function(e){
+		  e.preventDefault();
+		  cart_id=$(this).attr('data-id')
+		  cart_fooditem_id=$(this).attr('data-id-fooditem')
+		  url=$(this).attr('data-url')
+		  
+
+		  $.ajax({
+			type:'GET',
+			url:url,
+			success:function(response){
+				if(response.status == 'fail'){
+					swal(response.message, "", "error");
+				} else {
+					applyCartItem(response.cart_amount)
+					$('#cart-counter').html(response.counter.cart_counter)
+					swal(response.message, "", "success");
+					deleteCartItemLi(0,cart_id)
+					emptyCartDiv(response.counter.cart_counter)
+				}
+			}
+		  })
+		})
+	
+	
+		
+		$('.item_qty').each(function(){
+			fooditem_id=$(this).attr('id')
+			fooditem_qty=$(this).attr('data-qty')
+
+
+			$('#'+fooditem_id).html(fooditem_qty)
+
+		})
+		const deleteCartItemLi=(qty,id)=>{
+			if (qty<=0){
+				document.getElementById(`cartItem-${id}`).remove()
+				}
+		}
+
+		const emptyCartDiv=(counter)=>{
+			if (counter<=0){
+				document.getElementById('emptycart').style.display='block'
+				}
+		}
+
+		const applyCartItem=(cart_amount)=>{
+			if(window.location.pathname =='/marketplace/cart'){
+				$('#subtotal').html(cart_amount.subTotal)
+				$('#tax').html(cart_amount.tax)
+				$('#total').html(cart_amount.grandTotal)
+			}
+
+		}
+
+
+	})
+	</script>
 
 	
 </body>
