@@ -8,3 +8,5 @@ def home(request):
           'vendors':vendors
      }
      return render(request,'home.html',context)
+def test_map(request):
+     return render(request,'test_map.html')

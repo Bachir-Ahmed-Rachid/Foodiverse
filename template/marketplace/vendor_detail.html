@@ -12,13 +12,7 @@
 
 <!-- Main Section Start -->
 <div class="main-section">
-	<div class="page-section restaurant-detail-image-section" 
-	{% if vendor.user_profile.cover_picture %}
-		style=" background: url('{{vendor.user_profile.cover_picture.url}}') no-repeat scroll 0 0 / cover;"
-	{% else %}
-		style=" background: url('{% static 'images/default-cover.png' %}') no-repeat scroll 0 0 / cover;"
-	{% endif %}
-	>
+	<div class="page-section restaurant-detail-image-section" style=" background: url('{% static 'images/default-cover.png' %}') no-repeat scroll 0 0 / cover;">
 		
 		<!-- Container Start -->
 		<div class="container">

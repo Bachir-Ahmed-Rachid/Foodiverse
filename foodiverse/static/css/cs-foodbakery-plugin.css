@@ -78,7 +78,7 @@
 /* resturant detail menu start */
 .login-form .g-recaptcha { -webkit-transform: scale(1.15); -moz-transform: scale(1.1); -ms-transform: scale(1.1); transform: scale(1.1); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0; }
 .login-form .recaptcha-reload { margin-bottom: 30px; }
-.restaurant-detail-image-section { content: ''; display: block; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: rgba(0, 0, 0, 0.6);}
+.restaurant-detail-image-section { background: #ccc; margin-bottom: 60px; padding: 102px 0; position: relative; }
 .restaurant-detail-image-section:before { content: ''; display: block; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: rgba(0, 0, 0, 0.6); }
 .company-info-detail { display: table; width: 100%; }
 .transparent-header + .restaurant-detail-image-section .company-info-detail { margin-top: 50px; }

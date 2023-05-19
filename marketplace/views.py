@@ -1,11 +1,15 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_list_or_404, get_object_or_404, render
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 from marketplace.context_processors import get_cart_amount, get_counter
 from marketplace.models import Cart
 from menu.models import Category, Product
 from django.db.models import Prefetch
+from django.db.models import Q
 from vendors.models import Vendor
 from django.contrib.auth.decorators import login_required
+from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.db.models.functions import Distance #used to calculate distance
+from django.contrib.gis.measure import D
 
 # Create your views here.
 def marketplace(request):
@@ -152,3 +156,35 @@ def remove_cart(request,cart_id):
     else:
         return JsonResponse({'status':'login_required','message':'pleas login to remove this card'})
 
+def search(request):
+    if  not 'address' in request.GET:
+        return redirect('marketplace')
+    else:
+        restaurant_name_or_food=request.GET['rest_name']
+        longitude=request.GET['longitude']
+        latitude=request.GET['latitude']
+        radius=request.GET['radius']
+        address=request.GET['address']
+        #fetch vendors by fooditem
+        food_items_vendors=Product.objects.filter(product_name__icontains=restaurant_name_or_food).values_list('vendor',flat=True)
+        vendors=Vendor.objects.filter(
+            Q(id__in=food_items_vendors) or
+            Q(vendor_name__icontains=restaurant_name_or_food,is_approved=True,user__is_active=True)
+            )
+        print(request.GET)
+        if radius and latitude and longitude:
+            # Define the reference point with latitude and longitude
+            reference_point = GEOSGeometry(f'POINT({latitude} {longitude})')  # Example reference point (New York City coordinates)
+            # Perform the radius filter on your model 
+            vendors=Vendor.objects.filter(
+            Q(id__in=food_items_vendors) or
+            Q(vendor_name__icontains=restaurant_name_or_food,is_approved=True,user__is_active=True),
+            #in annotate we dd a new field called distance that use Distance function to calculate the distance between reference point and the location of vendor
+            user_profile__location__distance_lte=(reference_point,D(km=radius))).annotate(distance=Distance(reference_point,'user_profile__location')).order_by('distance')
+        vendors_count=vendors.count()
+        context={
+            'vendors_count':vendors_count,
+            'vendors':vendors,
+            'location':address
+        }
+        return render(request,'marketplace/listings.html',context)

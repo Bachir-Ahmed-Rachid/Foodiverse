@@ -82,10 +82,10 @@ def add_category(request):
         if form_category.is_valid():
             category=form_category.save(commit=False)
             vendor = get_vendor(request)
-            slug=slugify(form_category.cleaned_data['category_name'])
-            category.slug=slug
             category.vendor=vendor
+            slug=slugify(form_category.cleaned_data['category_name'])
             category.save()
+            category.slug=slug+'_'+str(category.id)
             messages.success(request, 'Category created successfully.')
             return redirect(reverse('add_category'))
         else:

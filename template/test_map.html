@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.3/dist/css/autocomplete.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.3/dist/js/autocomplete.min.js"></script>
+    </head>
+    <body>
+        
+        <div class="auto-search-wrapper">
+            <input
+              type="text"
+              autocomplete="off"
+              id="search"
+              class="full-width"
+              placeholder="enter the city name"
+            />
+          </div>
+          <script>
+            new Autocomplete("search", {
+                // default selects the first item in
+                // the list of results
+                selectFirst: true,
+
+                // The number of characters entered should start searching
+                howManyCharacters: 2,
+
+                // onSearch
+                onSearch: ({ currentValue }) => {
+                    // You can also use static files
+                    // const api = '../static/search.json'
+                    const api = `https://nominatim.openstreetmap.org/search?format=geojson&limit=5&city=${encodeURI(
+                    currentValue
+                    )}`;
+
+   
+    return new Promise((resolve) => {
+      fetch(api)
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data.features);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  },
+  // nominatim GeoJSON format parse this part turns json into the list of
+  // records that appears when you type.
+  onResults: ({ currentValue, matches, template }) => {
+    const regex = new RegExp(currentValue, "gi");
+
+    // if the result returns 0 we
+    // show the no results element
+    return matches === 0
+      ? template
+      : matches
+          .map((element) => {
+            return `
+          <li class="loupe">
+            <p>
+              ${element.properties.display_name.replace(
+                regex,
+                (str) => `<b>${str}</b>`
+              )}
+            </p>
+          </li> `;
+          })
+          .join("");
+  },
+
+  // we add an action to enter or click
+  onSubmit: ({ object }) => {
+    console.log(object)
+    // const { display_name } = object.properties;
+    // const [lng, lat] = object.geometry.coordinates;
+  },
+
+  // get index and data from li element after
+  // hovering over li with the mouse or using
+  // arrow keys ↓ | ↑
+//   onSelectedItem: ({ object }) => {
+//     console.log("onSelectedItem:", index, element, object);
+//   },
+
+  // the method presents no results element
+  noResults: ({ currentValue, template }) =>
+    template(`<li>No results found: "${currentValue}"</li>`),
+});
+          </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

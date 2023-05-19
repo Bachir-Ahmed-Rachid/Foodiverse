@@ -40,8 +40,9 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     profile_picture=forms.FileField(validators=[allow_only_images],widget=forms.FileInput(attrs={'class': 'btn btn-info'},))
     cover_picture=forms.FileField(validators=[allow_only_images],widget=forms.FileInput(attrs={'class': 'btn btn-info'},))
-    # latitude=forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'},))
-    # longitude=forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'},))
+    address=forms.CharField(widget=forms.TextInput(attrs={'id': 'search','placeholder':"enter the address"},))
+    latitude=forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'},))
+    longitude=forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'},))
     class Meta:
         model = UserProfile
         exclude = ['user']

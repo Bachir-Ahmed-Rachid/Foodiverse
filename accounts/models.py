@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+from django.contrib.gis.db import models as gisModels
+from django.contrib.gis.geos import Point 
 # Create your models here.
 
 # We create UserManger class for methods only  
@@ -91,7 +93,9 @@ class User(AbstractBaseUser):
         elif self.role == 2:
             user_role = 'CUSTOMER'
             return user_role
+ 
 
+#django.db.models.Model is the parent class
 
 class UserProfile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE,blank=True,null=True)
@@ -102,13 +106,20 @@ class UserProfile(models.Model):
     state=models.CharField(max_length=50,blank=True,null=True)
     city=models.CharField(max_length=50,blank=True,null=True)
     pin_code=models.CharField(max_length=6,blank=True,null=True)
-    latitude=models.CharField(max_length=6,blank=True,null=True)
-    longitude=models.CharField(max_length=6,blank=True,null=True)
+    latitude=models.CharField(max_length=50,blank=True,null=True)
+    longitude=models.CharField(max_length=50,blank=True,null=True)
+    location=gisModels.PointField(blank=True,null=True,srid=4326)
     created_at=models.DateField(auto_now_add=True)
     modified_at=models.DateField(auto_now=True)
 
     def __str__(self):
         return self.user.email
+
+    def save(self,*args, **kwargs):
+        if self.latitude and self.longitude:
+            self.location=Point(float(self.latitude),float(self.longitude))
+            return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
         
     # def full_address(self):
     #     return f'{self.address_line_1}, {self.address_line_2}'
