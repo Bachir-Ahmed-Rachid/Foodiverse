@@ -17,8 +17,8 @@
                         <ul>
                             <li class="location-has-children choose-location">
                                 <form action="#">
-                                    <input type="text" value="" name="location" placeholder="Enter your delivery location" autocomplete="off">
-                                    <span id="foodbakery_radius_location_open" class="foodbakery-radius-location"><i class="icon-target5"></i></span>
+                                    <input id="location" type="text" value="" name="location" placeholder="Enter your delivery location" autocomplete="off">
+                                    <span onclick="getLocation()" id="foodbakery_radius_location_open" class="foodbakery-radius-location"><i class="icon-target5"></i></span>
                                 </form>
                                 
                             </li>
@@ -51,3 +51,36 @@
         </div>
     </div>
 </header>
+
+<script>
+    let x = document.getElementById("location");
+    let curent_location=sessionStorage.getItem('curent_location')
+    if(curent_location){
+        x.value=curent_location
+    }
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    var geocodeService = L.esri.Geocoding.geocodeService();
+
+
+       
+    function showPosition(position) {
+        const{longitude,latitude}=position.coords
+        geocodeService.reverse().latlng([latitude, longitude]).run(function (error, result) {
+        if (error) {
+            return;
+        }
+        console.log(result)
+        const{Match_addr,City,CntryName}=result.address
+        x.value=Match_addr+','+CntryName
+        window.location='/?long='+longitude+'&lat='+latitude
+        sessionStorage.setItem('curent_location',x.value)
+        })
+    }
+    </script>

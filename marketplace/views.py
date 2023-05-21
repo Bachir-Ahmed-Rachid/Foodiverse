@@ -171,7 +171,6 @@ def search(request):
             Q(id__in=food_items_vendors) or
             Q(vendor_name__icontains=restaurant_name_or_food,is_approved=True,user__is_active=True)
             )
-        print(request.GET)
         if radius and latitude and longitude:
             # Define the reference point with latitude and longitude
             reference_point = GEOSGeometry(f'POINT({latitude} {longitude})')  # Example reference point (New York City coordinates)

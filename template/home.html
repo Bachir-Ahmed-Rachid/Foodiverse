@@ -91,7 +91,7 @@
 								{% for vendor in vendors %}
 									<li class="has-border">
 										<figure>
-											<a href="#">
+											<a href="{% url 'vendor_detail' vendor.slug %}">
 												{% if vendor.user_profile.profile_picture %}
 													<img src="{{vendor.user_profile.profile_picture.url}}" class="attachment-full size-full wp-post-image" alt="">
 													{% else %}
@@ -164,25 +164,23 @@
 											</div>
 											<div class="post-title">
 												<h5>
-													<a href="listing-detail.html">{{vendor.vendor_name}}</a>
-													<span class="sponsored text-color">Sponsored</span>
+													<a href="{% url 'vendor_detail' vendor.slug %}">
+
+														{{vendor.vendor_name}}</a>
 												</h5>
 											</div>
-											<address>
-												
-												{% if vendor.user_profile.address and vendor.user_profile.country and vendor.user_profile.state and vendor.user_profile.city and vendor.user_profile.pin_code %}
-													<span>
-														{{vendor.user_profile.address}} 
-														{{vendor.user_profile.country }}
-														{{vendor.user_profile.state}} 
-														{{vendor.user_profile.city}} 
-														{{vendor.user_profile.pin_code}}
-													</span>												
-													{% else %}
+											<div>
+
+														{% if vendor.user_profile.address %}
+															<span class="text-muted"><small>{{vendor.user_profile.address}}</small></span>
+														{% endif %}
+															
+														{% if vendor.distance %}
+														<p><b>{{vendor.distance.km | floatformat:2}}km </b>from your location</p>
+														{% endif %}
+																
 													
-												{% endif %}
-													
-											</address>
+											</div>
 										</div>
 										
 									</div>
