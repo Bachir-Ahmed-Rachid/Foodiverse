@@ -139,9 +139,7 @@
 									<div class="list-post featured">
 										<div class="img-holder">
 											<figure>
-												<a href="#">
-
-
+												<a href="{% url 'vendor_detail' vendor.slug %}">
 													{% if vendor.user_profile.profile_picture %}
 														<img src="{{vendor.user_profile.profile_picture.url}}" class="img-thumb wp-post-image" alt="">
 													{% else %}
